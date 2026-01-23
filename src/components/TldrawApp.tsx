@@ -126,10 +126,10 @@ function LocalFileMenu(props: { plugin: TldrawPlugin }) {
 			{
 				Platform.isMobile
 					? <></>
-					: <TldrawUiMenuItem  {...actions[SAVE_FILE_COPY_ACTION]} />
+					: <TldrawUiMenuItem  {...(actions[SAVE_FILE_COPY_ACTION] as any)} />
 			}
-			<TldrawUiMenuItem {...actions[SAVE_FILE_COPY_IN_VAULT_ACTION]} />
-			<TldrawUiMenuItem {...actions[OPEN_FILE_ACTION]} />
+			<TldrawUiMenuItem {...(actions[SAVE_FILE_COPY_IN_VAULT_ACTION] as any)} />
+			<TldrawUiMenuItem {...(actions[OPEN_FILE_ACTION] as any)} />
 		</TldrawUiMenuSubmenu>
 	);
 }

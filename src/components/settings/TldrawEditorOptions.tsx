@@ -266,6 +266,17 @@ function TldrawEditorOptionsGroup() {
         });
     }, [settingsManager, settings]);
 
+    const onToolbarOrientationChange = useCallback(async (value: string) => {
+        if (value !== 'vertical' && value !== 'horizontal') return;
+        await settingsManager.updateSettings({
+            ...settings,
+            tldrawOptions: {
+                ...settings.tldrawOptions,
+                toolbarOrientation: value
+            }
+        });
+    }, [settingsManager, settings]);
+
     return (
         <>
             <Setting
@@ -316,6 +327,22 @@ function TldrawEditorOptionsGroup() {
                             value={!!settings.tldrawOptions?.forceCompactMode}
                             onChange={onForceCompactMode}
                         />
+                    )
+                }}
+            />
+            <Setting
+                slots={{
+                    name: 'Toolbar orientation',
+                    desc: 'Whether the toolbar should be vertical or horizontal.',
+                    control: (
+                        <select
+                            value={settings.tldrawOptions?.toolbarOrientation ?? 'horizontal'}
+                            onChange={(e) => onToolbarOrientationChange(e.target.value)}
+                            className="dropdown"
+                        >
+                            <option value="horizontal">Horizontal</option>
+                            <option value="vertical">Vertical</option>
+                        </select>
                     )
                 }}
             />

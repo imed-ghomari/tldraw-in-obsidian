@@ -7,10 +7,11 @@ export function CustomToolbar() {
     const tools = useTools();
     const { plugin } = useTldrawInObsdianPlugin();
     const toolbarTools = plugin.settings.tldrawOptions?.toolbarTools;
+    const orientation = plugin.settings.tldrawOptions?.toolbarOrientation ?? 'horizontal';
 
     if (!toolbarTools || !Array.isArray(toolbarTools)) {
         return (
-            <DefaultToolbar>
+            <DefaultToolbar orientation={orientation}>
                 <ToolbarItem tool="select" />
                 <ToolbarItem tool="hand" />
                 <ToolbarItem tool="draw" />
@@ -20,7 +21,7 @@ export function CustomToolbar() {
     }
 
     return (
-        <DefaultToolbar>
+        <DefaultToolbar orientation={orientation}>
             {toolbarTools.map(item => {
                 if (!item.enabled) return null;
                 // useIsToolSelected check is internal to ToolbarItem usually, or we can pass it if needed.

@@ -150,6 +150,10 @@ export interface TldrawPluginSettings extends DeprecatedFileDestinationSettings 
 			simulatePressure?: boolean;
 		},
 		/**
+		 * Orientation of the toolbar
+		 */
+		toolbarOrientation?: 'vertical' | 'horizontal',
+		/**
 		 * Visibility and order of tools in the toolbar
 		 */
 		toolbarTools?: { id: string, enabled: boolean }[];
@@ -233,6 +237,7 @@ export const DEFAULT_SETTINGS = {
 			thinning: 0.5,
 			simulatePressure: true,
 		},
+		toolbarOrientation: 'horizontal',
 		toolbarTools: [
 			{ id: 'select', enabled: true },
 			{ id: 'hand', enabled: true },
