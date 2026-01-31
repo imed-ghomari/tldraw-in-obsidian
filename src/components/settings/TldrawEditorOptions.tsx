@@ -386,6 +386,26 @@ function TldrawEditorOptionsGroup() {
                     )
                 }}
             />
+            <Setting
+                slots={{
+                    name: 'Reduce quality during zoom',
+                    desc: 'Improve performance by hiding complex elements (like the grid and selection handles) while zooming or panning with the trackpad.',
+                    control: (
+                        <Setting.Toggle
+                            value={!!settings.tldrawOptions?.lowQualityDuringZoom}
+                            onChange={async (val) => {
+                                await settingsManager.updateSettings({
+                                    ...settings,
+                                    tldrawOptions: {
+                                        ...settings.tldrawOptions,
+                                        lowQualityDuringZoom: val
+                                    }
+                                });
+                            }}
+                        />
+                    )
+                }}
+            />
         </>
     )
 }

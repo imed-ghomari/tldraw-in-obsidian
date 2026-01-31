@@ -30,6 +30,19 @@
 	--no-tooltip: true;
 }
 
+/* Low quality during zoom optimization */
+.tldraw-view-root[data-is-zooming="true"] .tl-grid {
+	display: none !important;
+}
+
+.tldraw-view-root[data-is-zooming="true"] .tl-handles {
+	display: none !important;
+}
+
+.tldraw-view-root[data-is-zooming="true"] .tl-indicators {
+	display: none !important;
+}
+
 /* Custom Cursors */
 .tldraw-view-root[data-active-tool="draw"] .tl-canvas {
 	cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="%23333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 15l2-2 10-10 2 2-10 10-2 2z"></path><path d="M11 3l2 2"></path></svg>') 0 16, crosshair !important;

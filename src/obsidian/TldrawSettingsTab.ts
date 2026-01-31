@@ -157,6 +157,10 @@ export interface TldrawPluginSettings extends DeprecatedFileDestinationSettings 
 		 * Visibility and order of tools in the toolbar
 		 */
 		toolbarTools?: { id: string, enabled: boolean }[];
+		/**
+		 * Whether to lower the quality of shapes during zoom/camera movements to improve performance.
+		 */
+		lowQualityDuringZoom?: boolean,
 	}
 	/**
 	 * Options that apply to the editor camera
@@ -223,6 +227,7 @@ export const DEFAULT_SETTINGS = {
 		insertTags: true,
 	},
 	tldrawOptions: {
+		lowQualityDuringZoom: false,
 		strokeSizes: {
 			s: 0.1,
 			m: 0.3,

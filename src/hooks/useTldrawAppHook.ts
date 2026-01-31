@@ -121,4 +121,33 @@ export function useTldrawAppEffects({
             editor.setStyleForNextShapes(DefaultDashStyle, settings.tldrawOptions.defaultStrokeStyle);
         }
     }, [editor, settings]);
+
+    /**
+     * Effect for low quality during zoom
+     */
+    React.useEffect(() => {
+        if (!editor || !settings.tldrawOptions?.lowQualityDuringZoom) return;
+
+        let zoomTimeout: any;
+
+        const handleCameraChange = () => {
+            const container = editor.getContainer();
+            const root = container?.closest('.tldraw-view-root');
+            if (!root) return;
+
+            root.setAttribute('data-is-zooming', 'true');
+
+            if (zoomTimeout) clearTimeout(zoomTimeout);
+            zoomTimeout = window.setTimeout(() => {
+                root.removeAttribute('data-is-zooming');
+            }, 100);
+        };
+
+        (editor as any).on('change', handleCameraChange);
+
+        return () => {
+            (editor as any).off('change', handleCameraChange);
+            if (zoomTimeout) clearTimeout(zoomTimeout);
+        };
+    }, [editor, settings.tldrawOptions?.lowQualityDuringZoom]);
 }
