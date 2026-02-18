@@ -262,51 +262,65 @@ new mode 100755
 diff --git a/node_modules/tldraw/dist-cjs/lib/shapes/draw/getPath.js b/node_modules/tldraw/dist-cjs/lib/shapes/draw/getPath.js
 old mode 100644
 new mode 100755
-index 502a3d2..cd11bb0
+index 502a3d2..6a19d9a
 --- a/node_modules/tldraw/dist-cjs/lib/shapes/draw/getPath.js
 +++ b/node_modules/tldraw/dist-cjs/lib/shapes/draw/getPath.js
-@@ -33,7 +33,7 @@ const simulatePressureSettings = (strokeWidth) => {
+@@ -26,6 +26,13 @@ __export(getPath_exports, {
+ });
+ module.exports = __toCommonJS(getPath_exports);
+ var import_editor = require("@tldraw/editor");
++
++const getStrokeOption = (key, def) => {
++  if (typeof window === 'undefined' || !window.tldrawStrokeOptions) return def;
++  const val = window.tldrawStrokeOptions[key];
++  return val !== undefined ? val : def;
++};
++
+ const PEN_EASING = (t) => t * 0.65 + (0, import_editor.SIN)(t * import_editor.PI / 2) * 0.35;
+ const simulatePressureSettings = (strokeWidth) => {
+   return {
+@@ -33,7 +40,7 @@ const simulatePressureSettings = (strokeWidth) => {
      thinning: 0.5,
      streamline: (0, import_editor.modulate)(strokeWidth, [9, 16], [0.64, 0.74], true),
      // 0.62 + ((1 + strokeWidth) / 8) * 0.06,
 -    smoothing: 0.62,
-+    smoothing: 0,
++    smoothing: getStrokeOption('smoothing', 0.62),
      easing: import_editor.EASINGS.easeOutSine,
      simulatePressure: true
    };
-@@ -43,7 +43,7 @@ const realPressureSettings = (strokeWidth) => {
+@@ -43,7 +50,7 @@ const realPressureSettings = (strokeWidth) => {
      size: 1 + strokeWidth * 1.2,
      thinning: 0.62,
      streamline: 0.62,
 -    smoothing: 0.62,
-+    smoothing: 0,
++    smoothing: getStrokeOption('smoothing', 0.62),
      simulatePressure: false,
      easing: PEN_EASING
    };
-@@ -54,7 +54,7 @@ const solidSettings = (strokeWidth) => {
+@@ -54,7 +61,7 @@ const solidSettings = (strokeWidth) => {
      thinning: 0,
      streamline: (0, import_editor.modulate)(strokeWidth, [9, 16], [0.64, 0.74], true),
      // 0.62 + ((1 + strokeWidth) / 8) * 0.06,
 -    smoothing: 0.62,
-+    smoothing: 0,
++    smoothing: getStrokeOption('smoothing', 0.62),
      simulatePressure: false,
      easing: import_editor.EASINGS.linear
    };
-@@ -64,7 +64,7 @@ const solidRealPressureSettings = (strokeWidth) => {
+@@ -64,7 +71,7 @@ const solidRealPressureSettings = (strokeWidth) => {
      size: strokeWidth,
      thinning: 0,
      streamline: 0.62,
 -    smoothing: 0.62,
-+    smoothing: 0,
++    smoothing: getStrokeOption('smoothing', 0.62),
      simulatePressure: false,
      easing: import_editor.EASINGS.linear
    };
-@@ -77,7 +77,7 @@ function getHighlightFreehandSettings({
+@@ -77,7 +84,7 @@ function getHighlightFreehandSettings({
      size: 1 + strokeWidth,
      thinning: 0,
      streamline: 0.5,
 -    smoothing: 0.5,
-+    smoothing: 0,
++    smoothing: getStrokeOption('smoothing', 0.5),
      simulatePressure: false,
      easing: import_editor.EASINGS.easeOutSine,
      last: showAsComplete
@@ -644,51 +658,65 @@ diff --git a/node_modules/tldraw/dist-cjs/lib/shapes/shared/useEditableRichText.
 old mode 100644
 new mode 100755
 diff --git a/node_modules/tldraw/dist-esm/lib/shapes/draw/getPath.mjs b/node_modules/tldraw/dist-esm/lib/shapes/draw/getPath.mjs
-index 744956a..239683d 100644
+index 744956a..1de1d16 100644
 --- a/node_modules/tldraw/dist-esm/lib/shapes/draw/getPath.mjs
 +++ b/node_modules/tldraw/dist-esm/lib/shapes/draw/getPath.mjs
-@@ -13,7 +13,7 @@ const simulatePressureSettings = (strokeWidth) => {
+@@ -6,6 +6,13 @@ import {
+   b64Vecs,
+   modulate
+ } from "@tldraw/editor";
++
++const getStrokeOption = (key, def) => {
++  if (typeof window === 'undefined' || !window.tldrawStrokeOptions) return def;
++  const val = window.tldrawStrokeOptions[key];
++  return val !== undefined ? val : def;
++};
++
+ const PEN_EASING = (t) => t * 0.65 + SIN(t * PI / 2) * 0.35;
+ const simulatePressureSettings = (strokeWidth) => {
+   return {
+@@ -13,7 +20,7 @@ const simulatePressureSettings = (strokeWidth) => {
      thinning: 0.5,
      streamline: modulate(strokeWidth, [9, 16], [0.64, 0.74], true),
      // 0.62 + ((1 + strokeWidth) / 8) * 0.06,
 -    smoothing: 0.62,
-+    smoothing: 0,
++    smoothing: getStrokeOption('smoothing', 0.62),
      easing: EASINGS.easeOutSine,
      simulatePressure: true
    };
-@@ -23,7 +23,7 @@ const realPressureSettings = (strokeWidth) => {
+@@ -23,7 +30,7 @@ const realPressureSettings = (strokeWidth) => {
      size: 1 + strokeWidth * 1.2,
      thinning: 0.62,
      streamline: 0.62,
 -    smoothing: 0.62,
-+    smoothing: 0,
++    smoothing: getStrokeOption('smoothing', 0.62),
      simulatePressure: false,
      easing: PEN_EASING
    };
-@@ -34,7 +34,7 @@ const solidSettings = (strokeWidth) => {
+@@ -34,7 +41,7 @@ const solidSettings = (strokeWidth) => {
      thinning: 0,
      streamline: modulate(strokeWidth, [9, 16], [0.64, 0.74], true),
      // 0.62 + ((1 + strokeWidth) / 8) * 0.06,
 -    smoothing: 0.62,
-+    smoothing: 0,
++    smoothing: getStrokeOption('smoothing', 0.62),
      simulatePressure: false,
      easing: EASINGS.linear
    };
-@@ -44,7 +44,7 @@ const solidRealPressureSettings = (strokeWidth) => {
+@@ -44,7 +51,7 @@ const solidRealPressureSettings = (strokeWidth) => {
      size: strokeWidth,
      thinning: 0,
      streamline: 0.62,
 -    smoothing: 0.62,
-+    smoothing: 0,
++    smoothing: getStrokeOption('smoothing', 0.62),
      simulatePressure: false,
      easing: EASINGS.linear
    };
-@@ -57,7 +57,7 @@ function getHighlightFreehandSettings({
+@@ -57,7 +64,7 @@ function getHighlightFreehandSettings({
      size: 1 + strokeWidth,
      thinning: 0,
      streamline: 0.5,
 -    smoothing: 0.5,
-+    smoothing: 0,
++    smoothing: getStrokeOption('smoothing', 0.5),
      simulatePressure: false,
      easing: EASINGS.easeOutSine,
      last: showAsComplete
